@@ -1,0 +1,47 @@
+﻿@page "/"
+@inject HttpClient Http
+
+<PageTitle>Aktuální počasí</PageTitle>
+
+<h1>Počasí v Praze</h1>
+
+<p>Kliknutím na tlačítko zjistíš aktuální stav z Open-Meteo API.</p>
+
+<button class="btn btn-primary mb-3" @onclick="ZiskatPocasi">Zjistit počasí</button>
+
+@* Zobrazíme data pouze pokud už se stáhla *@
+@if (aktualniPocasi != null)
+{
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Teplota: @aktualniPocasi.temperature °C</h5>
+            <p class="card-text">Rychlost větru: @aktualniPocasi.windspeed km/h</p>
+            <p class="card-text text-muted"><small>Čas měření: @aktualniPocasi.time</small></p>
+        </div>
+    </div>
+}
+else if (nacteno == true)
+{
+    <p><em>Načítám data ze serveru...</em></p>
+}
+
+@code {
+    private Models.CurrentWeather? aktualniPocasi;
+    private bool nacteno = false;
+
+    private async Task ZiskatPocasi()
+    {
+        nacteno = true;
+
+        // Adresa s GPS souřadnicemi pro Prahu
+        string url = "https://api.open-meteo.com/v1/forecast?latitude=50.088&longitude=14.4208&current_weather=true";
+
+        // Zavoláme API a výsledek rovnou převedeme do našich C# tříd
+        var vysledek = await Http.GetFromJsonAsync<Models.WeatherResponse>(url);
+
+        if (vysledek != null)
+        {
+            aktualniPocasi = vysledek.current_weather;
+        }
+    }
+}
