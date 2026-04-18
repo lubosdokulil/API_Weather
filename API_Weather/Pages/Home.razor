@@ -14,9 +14,9 @@
 {
     <div class="card" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title">Teplota: @aktualniPocasi.temperature °C</h5>
-            <p class="card-text">Rychlost větru: @aktualniPocasi.windspeed km/h</p>
-            <p class="card-text text-muted"><small>Čas měření: @aktualniPocasi.time</small></p>
+            <h5 class="card-title">Teplota: @aktualniPocasi.Temperature °C</h5>
+            <p class="card-text">Rychlost větru: @aktualniPocasi.Windspeed km/h</p>
+            <p class="card-text text-muted"><small>Čas měření: @aktualniPocasi.Time</small></p>
         </div>
     </div>
 }
@@ -41,7 +41,7 @@ else if (nacteno == true)
 
         if (vysledek != null)
         {
-            aktualniPocasi = vysledek.current_weather;
+            aktualniPocasi = vysledek.CurrentWeather;
         }
     }
 }

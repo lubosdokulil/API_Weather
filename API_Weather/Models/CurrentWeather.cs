@@ -1,9 +1,15 @@
-﻿namespace API_Weather.Models
+﻿using System.Text.Json.Serialization;
+namespace API_Weather.Models
 {
     public class CurrentWeather
     {
-        public double temperature { get; set; }
-        public double windspeed { get; set; }
-        public string time { get; set; }
+        [JsonPropertyName("temperature")]
+        public double Temperature { get; set; }
+
+        [JsonPropertyName("windspeed")]
+        public double Windspeed { get; set; }
+
+        [JsonPropertyName("time")]
+        public string Time { get; set; }
     }
 }
